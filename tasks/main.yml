@@ -1,0 +1,15 @@
+---
+- name: Add Apache apt signing key
+  apt_key:
+    url: https://couchdb.apache.org/repo/bintray-pubkey.asc
+    state: present
+- name: Add couchdb repo
+  apt_repository:
+    repo: "deb https://apache.bintray.com/couchdb-deb {{ ansible_distribution_release }} main"
+    state: present
+    update_cache: yes
+    filename: 'couchdb'
+- name: Install couchdb package
+  apt:
+    name: couchdb
+    state: present
